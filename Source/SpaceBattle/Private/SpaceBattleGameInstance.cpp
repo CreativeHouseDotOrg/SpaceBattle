@@ -2,6 +2,7 @@
 
 #include "SpaceBattleGameInstance.h"
 #include "Interfaces/OnlineSessionInterface.h"
+#include "Interfaces/OnlineIdentityInterface.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
 
@@ -16,6 +17,38 @@ void USpaceBattleGameInstance::Init()
 
 	OnlineSubsystem = IOnlineSubsystem::Get();
 
+}
+
+void USpaceBattleGameInstance::Login()
+{
+
+	if (OnlineSubsystem) 
+	{
+		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface()) 
+		{
+			FOnlineAccountCredentials Credentials;
+
+			Credentials.Id = FString();
+			Credentials.Token = FString();
+			Credentials.Type = FString("accountportal");
+
+			Identity->OnLoginCompleteDelegates->AddUObject(this, &USpaceBattleGameInstance::OnLoginComplete);
+			Identity->Login(0, Credentials);
+		}
+	}
+}
+void USpaceBattleGameInstance::OnLoginComplete(int32 LocalUserNum, bool bWasSuccessful, const FUniqueNetId& UserId, const FString& Error)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Logged in: %d"), bWasSuccessful);
+
+
+	if (OnlineSubsystem)
+	{
+		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface())
+		{
+			Identity->ClearOnLoginCompleteDelegates(0, this);
+		}
+	}
 }
 
 

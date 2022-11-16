@@ -23,8 +23,13 @@ public:USpaceBattleGameInstance();
 
 public:
 	UFUNCTION(BlueprintCallable)
-	void CreateSession();
+		void CreateSession();
+
+public:
+	UFUNCTION(BlueprintCallable)
+		void Login();
 
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);
+	void OnLoginComplete(int32 LocalUserNum, bool bWasSuccessful, const FUniqueNetId& UserId, const FString& Error);
 	
 };
