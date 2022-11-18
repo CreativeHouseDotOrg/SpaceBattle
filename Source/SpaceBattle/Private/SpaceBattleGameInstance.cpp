@@ -5,6 +5,8 @@
 #include "Interfaces/OnlineIdentityInterface.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
+#include "../Enums/EAsyncOperationOutExec.h"
+
 
 USpaceBattleGameInstance::USpaceBattleGameInstance() {
 
@@ -19,9 +21,9 @@ void USpaceBattleGameInstance::Init()
 
 }
 
-void USpaceBattleGameInstance::Login()
+void USpaceBattleGameInstance::Login(TEnumAsByte<EAsyncOperationOutExec>& Outcome)
 {
-
+	Outcome = EAsyncOperationOutExec::Failed;
 	if (OnlineSubsystem) 
 	{
 		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface()) 
@@ -33,6 +35,11 @@ void USpaceBattleGameInstance::Login()
 			Credentials.Type = FString("accountportal");
 
 			Identity->OnLoginCompleteDelegates->AddUObject(this, &USpaceBattleGameInstance::OnLoginComplete);
+
+			// TODO
+			// Outcome = EOutcomePins::Success;
+
+
 			Identity->Login(0, Credentials);
 		}
 	}
