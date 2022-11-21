@@ -48,7 +48,6 @@ void USpaceBattleGameInstance::OnLoginComplete(int32 LocalUserNum, bool bWasSucc
 {
 	UE_LOG(LogTemp, Warning, TEXT("Logged in: %d"), bWasSuccessful);
 
-
 	if (OnlineSubsystem)
 	{
 		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface())
@@ -77,8 +76,6 @@ void USpaceBattleGameInstance::CreateSession()
 			SessionPtr->CreateSession(0, FName("Test Session"), SessionSettings);
 		}
 	}
-
-
 }
 
 void USpaceBattleGameInstance::OnCreateSessionComplete(FName SessionName, bool bWasSuccessful)
