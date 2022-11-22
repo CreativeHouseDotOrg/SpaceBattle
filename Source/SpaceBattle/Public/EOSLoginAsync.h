@@ -16,7 +16,6 @@ class SPACEBATTLE_API UEOSLoginAsync : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 
-
 protected: class IOnlineSubsystem* OnlineSubsystem;
 
 public:

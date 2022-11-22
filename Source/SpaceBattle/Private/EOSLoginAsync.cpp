@@ -8,16 +8,13 @@
 #include "OnlineSessionSettings.h"
 
 UEOSLoginAsync* UEOSLoginAsync::EOSLoginAsync() {
-	UEOSLoginAsync* NewLoginNode = NewObject<UEOSLoginAsync>();
-	return NewLoginNode;
+	UEOSLoginAsync* NewNode = NewObject<UEOSLoginAsync>();
+	return NewNode;
 }
 
 void UEOSLoginAsync::Activate()
 {
-
 	OnlineSubsystem = IOnlineSubsystem::Get();
-
-
 
 	if (OnlineSubsystem)
 	{
@@ -31,10 +28,6 @@ void UEOSLoginAsync::Activate()
 
 			Identity->OnLoginCompleteDelegates->AddUObject(this, &UEOSLoginAsync::OnLoginComplete);
 
-			// TODO
-			// Outcome = EOutcomePins::Success;
-
-
 			Identity->Login(0, Credentials);
 		}
 	}
@@ -46,8 +39,7 @@ void UEOSLoginAsync::OnLoginComplete(int32 LocalUserNum, bool bWasSuccessful, co
 
 	if (bWasSuccessful) 
 	{
-		OnSuccess.Broadcast(LocalUserNum, bWasSuccessful, UserId.ToString(), Err);
-		
+		OnSuccess.Broadcast(LocalUserNum, bWasSuccessful, UserId.ToString(), Err);		
 		UE_LOG(LogTemp, Warning, TEXT("Login successful!"), 0);
 	}
 	else
@@ -55,7 +47,6 @@ void UEOSLoginAsync::OnLoginComplete(int32 LocalUserNum, bool bWasSuccessful, co
 		OnFail.Broadcast(LocalUserNum, bWasSuccessful, UserId.ToString(), Err);
 		UE_LOG(LogTemp, Warning, TEXT("Login failed!"), 0);
 	}
-
 
 	if (OnlineSubsystem)
 	{
