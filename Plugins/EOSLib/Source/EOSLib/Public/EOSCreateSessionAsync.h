@@ -13,7 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCreateSessionResponseDelegate, FNa
  * 
  */
 UCLASS()
-class SPACEBATTLE_API UEOSCreateSessionAsync : public UBlueprintAsyncActionBase
+class UEOSCreateSessionAsync : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 

@@ -22,15 +22,7 @@
 			]
 		},
 		{
-			"Name": "OnlineServicesEOS",
-			"Enabled": true
-		},
-		{
-			"Name": "EOSVoiceChat",
-			"Enabled": true
-		},
-		{
-			"Name": "OnlineSubsystemEOS",
+			"Name": "EOSLib",
 			"Enabled": true
 		}
 	]

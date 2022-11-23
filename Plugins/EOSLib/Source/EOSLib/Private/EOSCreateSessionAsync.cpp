@@ -59,7 +59,17 @@ void UEOSCreateSessionAsync::Activate()
 void UEOSCreateSessionAsync::OnCreateSessionComplete(FName sessionName, bool bWasSuccessful)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Create Session Status : %d"), bWasSuccessful);
-	//UE_LOG(LogTemp, Warning, TEXT("SessionName : %s"), sessionName);
+
+	if (bWasSuccessful)
+	{
+		OnSuccess.Broadcast(sessionName, bWasSuccessful);
+		UE_LOG(LogTemp, Warning, TEXT("Session created"), 0);
+	}
+	else
+	{
+		OnFail.Broadcast(sessionName, bWasSuccessful);
+		UE_LOG(LogTemp, Warning, TEXT("Session could not be created"), 0);
+	}
 
 	if (OnlineSubsystem)
 	{

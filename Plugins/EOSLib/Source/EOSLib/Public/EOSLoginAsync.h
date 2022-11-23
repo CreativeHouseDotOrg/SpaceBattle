@@ -12,7 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FLoginResponseDelegate, int32, Loc
  * 
  */
 UCLASS()
-class SPACEBATTLE_API UEOSLoginAsync : public UBlueprintAsyncActionBase
+class UEOSLoginAsync : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 
