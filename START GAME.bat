@@ -1,0 +1,1 @@
+start "" "C:\Program Files\Epic Games\UE_5.1\Engine\Binaries\Win64\UnrealEditor.exe" "C:\Users\Mike Wells\Documents\Unreal Projects\SpaceBattle\SpaceBattle.uproject" -game -ResX=800 -ResY=600 -WinX=0 -WinY=20 -log

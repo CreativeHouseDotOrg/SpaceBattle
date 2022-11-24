@@ -10,18 +10,22 @@
 
 UEOSCreateSessionAsync* UEOSCreateSessionAsync::EOSCreateSessionAsync(
 	FName sessionName,
-	bool bIsDedicated = false,
-	bool bIsLanMatch = false,
-	int numPublicConnections = 2,
-	bool bAllowJoinInProgress = true,
-	bool bAllowJoinViaPresence = true,
-	bool bUsesPresence = true
+	bool bIsDedicated,
+	bool bUseLobbiesIfAvailable,
+	bool bIsLanMatch,
+	bool bShouldAdvertise,
+	int numPublicConnections,
+	bool bAllowJoinInProgress,
+	bool bAllowJoinViaPresence,
+	bool bUsesPresence
 ) {
 	UEOSCreateSessionAsync* NewNode = NewObject<UEOSCreateSessionAsync>();
 
 	NewNode->tempSessionName = sessionName;
 	NewNode->tempIsDedicated = bIsDedicated;
+	NewNode->tempUseLobbiesIfAvailable = bUseLobbiesIfAvailable;
 	NewNode->tempIsLanMatch = bIsLanMatch;
+	NewNode->tempShouldAdvertise = bShouldAdvertise;
 	NewNode->tempNumPublicConnections = numPublicConnections;
 	NewNode->tempAllowJoinInProgress = bAllowJoinInProgress;
 	NewNode->tempAllowJoinViaPresence = bAllowJoinViaPresence;
@@ -43,7 +47,9 @@ void UEOSCreateSessionAsync::Activate()
 
 			SessionSettings.bIsDedicated = tempIsDedicated;
 			//SessionSettings.bIsDedicated = true;
+			SessionSettings.bUseLobbiesIfAvailable = tempUseLobbiesIfAvailable;
 			SessionSettings.bIsLANMatch = tempIsLanMatch;
+			SessionSettings.bShouldAdvertise = tempShouldAdvertise;
 			SessionSettings.NumPublicConnections = tempNumPublicConnections;
 			SessionSettings.bAllowJoinInProgress = tempAllowJoinInProgress;
 			SessionSettings.bAllowJoinViaPresence = tempAllowJoinViaPresence;

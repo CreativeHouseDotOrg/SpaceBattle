@@ -22,9 +22,13 @@ void UEOSLoginAsync::Activate()
 		{
 			FOnlineAccountCredentials Credentials;
 
-			Credentials.Id = FString();
-			Credentials.Token = FString();
-			Credentials.Type = FString("accountportal");
+			Credentials.Id = FString("127.0.0.1:8081");
+			Credentials.Token = FString("SpaceBattleCredential");
+			Credentials.Type = FString("developer");
+
+			//Credentials.Id = FString();
+			//Credentials.Token = FString();
+			//Credentials.Type = FString("accountportal");
 
 			Identity->OnLoginCompleteDelegates->AddUObject(this, &UEOSLoginAsync::OnLoginComplete);
 

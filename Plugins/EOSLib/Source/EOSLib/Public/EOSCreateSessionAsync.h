@@ -25,7 +25,12 @@ private:
 	UPROPERTY()
 		bool tempIsDedicated = false;
 	UPROPERTY()
+		bool tempUseLobbiesIfAvailable = false;
+	
+	UPROPERTY()
 		bool tempIsLanMatch = false;
+	UPROPERTY()
+		bool tempShouldAdvertise = false;
 	UPROPERTY()
 		int tempNumPublicConnections = 2;
 	UPROPERTY()
@@ -41,7 +46,9 @@ public:
 		static UEOSCreateSessionAsync* EOSCreateSessionAsync(
 			FName sessionName,
 			bool bIsDedicated,
+			bool bUseLobbiesIfAvailable,
 			bool bIsLanMatch,
+			bool bShouldAdvertise,
 			int numPublicConnections,
 			bool bAllowJoinInProgress,
 			bool bAllowJoinViaPresence,
