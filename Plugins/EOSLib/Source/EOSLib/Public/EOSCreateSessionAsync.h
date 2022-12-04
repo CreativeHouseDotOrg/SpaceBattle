@@ -13,7 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FCreateSessionResponseDelegate, FNa
  * 
  */
 UCLASS()
-class UEOSCreateSessionAsync : public UBlueprintAsyncActionBase
+class EOSLIB_API UEOSCreateSessionAsync : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 

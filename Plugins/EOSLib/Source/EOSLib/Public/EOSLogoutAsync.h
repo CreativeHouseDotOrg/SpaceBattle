@@ -12,7 +12,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FLogoutResponseDelegate, int32, Loc
  * 
  */
 UCLASS()
-class UEOSLogoutAsync : public UBlueprintAsyncActionBase
+class EOSLIB_API UEOSLogoutAsync : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 

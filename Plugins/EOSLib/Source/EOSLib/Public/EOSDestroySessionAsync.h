@@ -13,7 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FDestroySessionResponseDelegate, FN
  * 
  */
 UCLASS()
-class UEOSDestroySessionAsync : public UBlueprintAsyncActionBase
+class EOSLIB_API UEOSDestroySessionAsync : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 	
