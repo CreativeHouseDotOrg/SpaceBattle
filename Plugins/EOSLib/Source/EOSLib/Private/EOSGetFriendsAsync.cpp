@@ -2,11 +2,9 @@
 
 
 #include "EOSGetFriendsAsync.h"
-
 #include "Interfaces/OnlineFriendsInterface.h"
 #include "Interfaces/OnlineIdentityInterface.h"
 #include "OnlineSubsystem.h"
-#include "OnlineSessionSettings.h"
 
 UEOSGetFriendsAsync* UEOSGetFriendsAsync::EOSGetFriendsAsync() {
 	UEOSGetFriendsAsync* NewNode = NewObject<UEOSGetFriendsAsync>();
@@ -31,8 +29,7 @@ void UEOSGetFriendsAsync::Activate()
 void UEOSGetFriendsAsync::OnReadFriendsListComplete(int32 localUserNum, bool bWasSuccessful, const FString& listName, const FString& err)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Getting Friends : %d"), bWasSuccessful);
-	//UE_LOG(LogTemp, Warning, TEXT("SessionName : %s"), sessionName);
-
+	
 	if (OnlineSubsystem)
 	{
 		if (IOnlineFriendsPtr FriendsPtr = OnlineSubsystem->GetFriendsInterface())
@@ -52,7 +49,6 @@ void UEOSGetFriendsAsync::OnReadFriendsListComplete(int32 localUserNum, bool bWa
 			}
 		}
 	}
-
 
 	OnSuccess.Broadcast(localUserNum, bWasSuccessful, listName, err);
 	UE_LOG(LogTemp, Warning, TEXT("Read Friends successfully"), 0);
