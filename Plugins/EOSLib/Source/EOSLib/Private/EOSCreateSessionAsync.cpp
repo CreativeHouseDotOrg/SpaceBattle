@@ -7,6 +7,7 @@
 #include "Interfaces/OnlineIdentityInterface.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
+#include "Engine/World.h"
 
 UEOSCreateSessionAsync* UEOSCreateSessionAsync::EOSCreateSessionAsync(
 	FName sessionName,
@@ -55,6 +56,8 @@ void UEOSCreateSessionAsync::Activate()
 			SessionSettings.bAllowJoinViaPresence = tempAllowJoinViaPresence;
 			SessionSettings.bUsesPresence = tempUsesPresence;
 
+			SessionSettings.Set(SEARCH_KEYWORDS, FString("SpaceBattleLobby"), EOnlineDataAdvertisementType::ViaOnlineService);
+
 			SessionPtr->OnCreateSessionCompleteDelegates.AddUObject(this, &UEOSCreateSessionAsync::OnCreateSessionComplete);
 			SessionPtr->CreateSession(0, tempSessionName, SessionSettings);
 
@@ -70,6 +73,7 @@ void UEOSCreateSessionAsync::OnCreateSessionComplete(FName sessionName, bool bWa
 	{
 		OnSuccess.Broadcast(sessionName, bWasSuccessful);
 		UE_LOG(LogTemp, Warning, TEXT("Session created"), 0);
+		//GetWorld()->ServerTravel(FString("LobbyLevel?listen"),true); // CRASHES???
 	}
 	else
 	{
