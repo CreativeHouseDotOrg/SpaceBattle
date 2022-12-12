@@ -6,19 +6,18 @@
 #include "OnlineSessionSettings.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "OnlineSubsystem.h"
-
 #include "../Structs/FEOSFindSessionResultStruct.h"
-
 #include "Kismet/BlueprintAsyncActionBase.h"
-#include "EOSFindSessionsAsync.generated.h"
+#include "EOSJoinSessionAsync.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FFindSessionsResponseDelegate, bool, bWasSuccessful, const TArray<FEOSFindSessionResultStruct>&, SearchResult);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FJoinSessionResponseDelegate, FString, ConnectionInfo);
 
 /**
  * 
  */
 UCLASS()
-class EOSLIB_API UEOSFindSessionsAsync : public UBlueprintAsyncActionBase
+class EOSLIB_API UEOSJoinSessionAsync : public UBlueprintAsyncActionBase
 {
 	GENERATED_BODY()
 	
@@ -27,17 +26,19 @@ class EOSLIB_API UEOSFindSessionsAsync : public UBlueprintAsyncActionBase
 public:
 
 	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true"))
-		static UEOSFindSessionsAsync* EOSFindSessionsAsync();
+		static UEOSJoinSessionAsync* EOSJoinSessionAsync(FName SessionName, FEOSFindSessionResultStruct Session);
 	
 	virtual void Activate() override;
 
-	TSharedPtr<FOnlineSessionSearch> SearchSettings;
+	FName tempSessionName;
+	FEOSFindSessionResultStruct tempSession;
 	
 	UPROPERTY(BlueprintAssignable)
-	FFindSessionsResponseDelegate OnSuccess;
+	FJoinSessionResponseDelegate OnSuccess;
 	
 	UPROPERTY(BlueprintAssignable)
-	FFindSessionsResponseDelegate OnFail;
+	FJoinSessionResponseDelegate OnFail;
 	
-	void OnFindSessionsComplete(bool bWasSuccessful);
+	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+	
 };

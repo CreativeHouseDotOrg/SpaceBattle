@@ -2,8 +2,6 @@
 
 
 #include "EOSFindSessionsAsync.h"
-#include "OnlineSubsystem.h"
-#include "Interfaces/OnlineSessionInterface.h"
 
 UEOSFindSessionsAsync* UEOSFindSessionsAsync::EOSFindSessionsAsync() {
 	UEOSFindSessionsAsync* NewNode = NewObject<UEOSFindSessionsAsync>();
@@ -34,14 +32,31 @@ void UEOSFindSessionsAsync::OnFindSessionsComplete(bool bWasSuccessful)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Find Sessions Status : %d"), bWasSuccessful);
 
+	TArray<FEOSFindSessionResultStruct> SearchResult;
+	
 	if (bWasSuccessful)
 	{
-		OnSuccess.Broadcast(bWasSuccessful);
+		for (int i = 0; i < SearchSettings->SearchResults.Num(); i++ )
+		{
+			FOnlineSessionSearchResult res = SearchSettings->SearchResults[i];
+			FString sessionOwnerName = res.Session.OwningUserName;
+			
+			FEOSFindSessionResultStruct str;
+
+			str.OnlineResult = res;
+			
+			str.SessionOwnerName = sessionOwnerName;
+			str.SessionIdStr = res.GetSessionIdStr();
+			str.PingInMs = res.PingInMs;
+			SearchResult.Add(str);
+		}
+		
+		OnSuccess.Broadcast(bWasSuccessful,SearchResult);
 		UE_LOG(LogTemp, Warning, TEXT("Sessions found %d"), SearchSettings->SearchResults.Num());
 	}
 	else
 	{
-		OnFail.Broadcast(bWasSuccessful);
+		OnFail.Broadcast(bWasSuccessful, SearchResult);
 		UE_LOG(LogTemp, Warning, TEXT("Sessions could not be found"));
 	}
 
