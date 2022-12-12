@@ -39,7 +39,8 @@ void UEOSJoinSessionAsync::OnJoinSessionComplete(FName SessionName, EOnJoinSessi
 			{
 
 				OnSuccess.Broadcast(ConnectionInfo);
-				UE_LOG(LogTemp, Warning, TEXT("Session joined"));				
+				UE_LOG(LogTemp, Warning, TEXT("Session joined"));			
+				UE_LOG(LogTemp, Warning, TEXT("ConnectionInfo is %s"), *FString(ConnectionInfo));				
 			}
 			else
 			{
